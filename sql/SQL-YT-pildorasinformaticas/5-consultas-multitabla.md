@@ -85,3 +85,29 @@ SELECT jobTitle, employeeNumber, phone FROM employees INNER JOIN offices ON empl
 ![img-7](./assets/img-7.png)
 
 ![img-8](./assets/img-8.png)
+
+20 de fevereiro
+
+Left  y right join nos van a mostrar la información en comun, los campos, entre dos tablas además de todos los campos de la tabla izq o derecha según sea el caso
+
+```sql
+SELECT * FROM employees INNER JOIN offices ON employees.officeCode = offices.officeCode; 
+
+# Ejemplo
+SELECT clientes.codigo_cliente, poblacion, direccion, numero_pedido, pedidos.codigo_cliente, forma_pago 
+FROM clientes INNER JOIN pedidos ON clientes.codigo_cliente = pedidos.codigo_cliente WHERE poblacion = "madrid";
+
+# la tabla de clientes y pedido clientes esta relacionada porque para que exista un pedido un cliente lo debio haber hecho, solo existira un codigo de cliente lleno en pedido si un cliente lo hizo sino el campo es null, 
+# entonces cuando utilizamos el INNER nos va a regresar los registros en los que existan el codigo .cliente lleno en ambas tablas, dejando fuera los que sea null, es decir, que no exista un pedidio por cliendte pero si el cliente 
+
+SELECT clientes.codigo_cliente, poblacion, direccion, numero_pedido, pedidos.codigo_cliente, forma_pago 
+FROM clientes LEFT JOIN pedidos ON clientes.codigo_cliente = pedidos.codigo_cliente WHERE poblacion = "madrid";
+
+# AL hacer un LEFT JOIN , como  la tabla a la izquierda es la de los clientes sí nos mostrara el registre donde el codigo.cliente existe en esa tabala aunque en la tabla de pedidos esta parte este null
+# diferencia del inner que omite los null y no los muestra porque no son elementos qu ecompartan ambas tablas, los outer join son los elementos que comparten mas todos los de un lado
+
+      
+SELECT clientes.codigo_cliente, poblacion, direccion, numero_pedido, pedidos.codigo_cliente, forma_pago 
+FROM clientes LEFT JOIN pedidos ON clientes.codigo_cliente = pedidos.codigo_cliente WHERE poblacion = "madrid" AND pedidos.codigo_cliente IS NULL;
+```sql
+
